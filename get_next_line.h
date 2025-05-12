@@ -6,7 +6,7 @@
 /*   By: mcardoso <mcardoso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 12:38:09 by mcardoso          #+#    #+#             */
-/*   Updated: 2025/05/10 16:28:03 by mcardoso         ###   ########.fr       */
+/*   Updated: 2025/05/12 14:04:02 by mcardoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 20
+# define BUFFER_SIZE 1000000
 #endif
 
 # include <stdlib.h>

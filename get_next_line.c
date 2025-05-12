@@ -6,7 +6,7 @@
 /*   By: mcardoso <mcardoso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 12:37:41 by mcardoso          #+#    #+#             */
-/*   Updated: 2025/05/10 16:20:49 by mcardoso         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:35:28 by mcardoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_next_line(int fd)
 			free(stash);
 			return (NULL);
 		}
-		if (bytes_read == 0 && stash[0] == '\0')
+		if (bytes_read == 0)
 			break;
 		buffer_cont[bytes_read] = '\0';
 		stash = ft_strjoin_free(stash, buffer_cont);
@@ -42,13 +42,17 @@ char	*get_next_line(int fd)
 
 int main(void)
 {
-	int	fd = open("ficheiro.txt", O_RDONLY);
+	int	i;
+	int	fd = open("text.txt", O_RDONLY);
 	char *line;
 
-	while ((line = get_next_line(fd)))
+	i = 0;
+	while (i < 151)
 	{
-		printf("Linha: %s|\n", line);
+		line = get_next_line(fd);
+		printf("%s", line);
 		free(line);
+		i++;
 	}
 	close(fd);
 }

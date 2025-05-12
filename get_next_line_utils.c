@@ -6,7 +6,7 @@
 /*   By: mcardoso <mcardoso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 12:37:54 by mcardoso          #+#    #+#             */
-/*   Updated: 2025/05/10 16:40:49 by mcardoso         ###   ########.fr       */
+/*   Updated: 2025/05/12 15:09:13 by mcardoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ char	*ft_strjoin_free(char *s1, char const *s2)
 	int		i;
 	int		j;
 
-	if (!s1 || !s2)
+	if (!s2)
 		return (NULL);
 	res = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!res)
 		return (NULL);
 	i = 0;
-	while (s1[i])
+	while (s1 && s1[i])
 	{
 		res[i] = s1[i];
 		i++;
@@ -65,8 +65,7 @@ char	*ft_strjoin_free(char *s1, char const *s2)
 		j++;
 	}
 	res[i + j] = '\0';
-	if (s1)
-		free (s1);
+	free (s1);
 	return (res);
 }
 
