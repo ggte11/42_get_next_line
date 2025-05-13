@@ -6,7 +6,7 @@
 /*   By: mcardoso <mcardoso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 12:37:41 by mcardoso          #+#    #+#             */
-/*   Updated: 2025/05/12 15:35:28 by mcardoso         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:31:45 by mcardoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*get_next_line(int fd)
 {
-	char	buffer_cont[BUFFER_SIZE + 1];
-	static char *stash;
+	char		buffer_cont[BUFFER_SIZE + 1];
+	static char	*stash;
 	char		*line;
 	int			bytes_read;
 
@@ -31,7 +31,7 @@ char	*get_next_line(int fd)
 			return (NULL);
 		}
 		if (bytes_read == 0)
-			break;
+			break ;
 		buffer_cont[bytes_read] = '\0';
 		stash = ft_strjoin_free(stash, buffer_cont);
 	}

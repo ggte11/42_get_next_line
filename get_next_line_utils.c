@@ -6,7 +6,7 @@
 /*   By: mcardoso <mcardoso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 12:37:54 by mcardoso          #+#    #+#             */
-/*   Updated: 2025/05/12 15:09:13 by mcardoso         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:44:04 by mcardoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	ft_strlen(const char *str)
 	if (str)
 	{
 		while (str[i])
-		i++;
+			i++;
 	}
 	return (i);
 }
@@ -71,18 +71,20 @@ char	*ft_strjoin_free(char *s1, char const *s2)
 
 char	*ft_extract_line(char *stash)
 {
-	char *res;
+	char	*res;
 	size_t	i;
-	int	size_line;
+	int		size_line;
 
 	if (!stash)
 		return (NULL);
 	i = 0;
 	size_line = ft_findnewline(stash);
+	if (size_line == -1)
+		size_line = ft_strlen(stash) - 1;
 	res = malloc((size_line + 2) * sizeof(char));
 	if (!res)
 		return (NULL);
-	while (stash[i] != '\n' && stash[i] !=  '\0')
+	while (stash[i] != '\n' && stash[i] != '\0')
 	{
 		res[i] = stash[i];
 		i++;
@@ -100,8 +102,8 @@ char	*ft_clean_stash(char *stash)
 {
 	size_t	i;
 	size_t	j;
-	int	new_start;
-	char *res;
+	int		new_start;
+	char	*res;
 
 	if (!stash)
 		return (NULL);
@@ -111,7 +113,7 @@ char	*ft_clean_stash(char *stash)
 		free(stash);
 		return (NULL);
 	}
-	res = malloc((ft_strlen(stash) -  new_start) * sizeof(char));
+	res = malloc((ft_strlen(stash) - new_start) * sizeof(char));
 	if (!res)
 		return (NULL);
 	i = new_start + 1;
