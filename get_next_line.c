@@ -6,7 +6,7 @@
 /*   By: mcardoso <mcardoso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 12:37:41 by mcardoso          #+#    #+#             */
-/*   Updated: 2025/05/13 13:31:45 by mcardoso         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:51:22 by mcardoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ char	*get_next_line(int fd)
 	{
 		bytes_read = read(fd, buffer_cont, BUFFER_SIZE);
 		if (bytes_read < 0)
-		{
-			free(stash);
 			return (NULL);
-		}
 		if (bytes_read == 0)
 			break ;
 		buffer_cont[bytes_read] = '\0';

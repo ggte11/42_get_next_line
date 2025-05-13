@@ -6,7 +6,7 @@
 /*   By: mcardoso <mcardoso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 12:37:54 by mcardoso          #+#    #+#             */
-/*   Updated: 2025/05/13 13:44:04 by mcardoso         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:45:27 by mcardoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*ft_extract_line(char *stash)
 	size_t	i;
 	int		size_line;
 
-	if (!stash)
+	if (!stash || !*stash)
 		return (NULL);
 	i = 0;
 	size_line = ft_findnewline(stash);
@@ -91,7 +91,7 @@ char	*ft_extract_line(char *stash)
 	}
 	if (stash[i] == '\n')
 	{
-		res[i] = stash[i];
+		res[i] = '\n';
 		i++;
 	}
 	res[i] = '\0';
