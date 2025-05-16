@@ -6,7 +6,7 @@
 /*   By: mcardoso <mcardoso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 12:37:54 by mcardoso          #+#    #+#             */
-/*   Updated: 2025/05/13 15:45:27 by mcardoso         ###   ########.fr       */
+/*   Updated: 2025/05/16 13:46:29 by mcardoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,37 +90,30 @@ char	*ft_extract_line(char *stash)
 		i++;
 	}
 	if (stash[i] == '\n')
-	{
-		res[i] = '\n';
-		i++;
-	}
+		res[i++] = '\n';
 	res[i] = '\0';
+	free(stash);
 	return (res);
 }
 
-char	*ft_clean_stash(char *stash)
+void	ft_clean_stash(char *stash)
 {
 	size_t	i;
 	size_t	j;
 	int		new_start;
-	char	*res;
 
-	if (!stash)
-		return (NULL);
+	if (!stash || !*stash)
+		return ;
 	new_start = ft_findnewline(stash);
-	if (new_start == -1 || stash[new_start] == '\0')
+	if (new_start == -1)
 	{
-		free(stash);
-		return (NULL);
+		stash[0] = '\0';
+		return ;
 	}
-	res = malloc((ft_strlen(stash) - new_start) * sizeof(char));
-	if (!res)
-		return (NULL);
 	i = new_start + 1;
 	j = 0;
 	while (stash[i])
-		res[j++] = stash[i++];
-	res[j] = '\0';
-	free(stash);
-	return (res);
+		stash[j++] = stash[i++];
+	stash[j] = '\0';
+	return ;
 }

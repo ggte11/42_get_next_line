@@ -6,7 +6,7 @@
 /*   By: mcardoso <mcardoso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 12:37:41 by mcardoso          #+#    #+#             */
-/*   Updated: 2025/05/13 15:51:22 by mcardoso         ###   ########.fr       */
+/*   Updated: 2025/05/16 13:48:18 by mcardoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,30 @@
 
 char	*get_next_line(int fd)
 {
-	char		buffer_cont[BUFFER_SIZE + 1];
-	static char	*stash;
+	static char	buffer_count[BUFFER_SIZE + 1];
 	char		*line;
 	int			bytes_read;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	line = NULL;
-	while (ft_findnewline(stash) == -1)
+	if (*buffer_count != '\0')
+		line = ft_strjoin_free(line, buffer_count);
+	while (ft_findnewline(buffer_count) == -1)
 	{
-		bytes_read = read(fd, buffer_cont, BUFFER_SIZE);
+		bytes_read = read(fd, buffer_count, BUFFER_SIZE);
 		if (bytes_read < 0)
-			return (NULL);
+		{
+			buffer_count[0] = '\0';
+			return (free(line), NULL);
+		}
 		if (bytes_read == 0)
 			break ;
-		buffer_cont[bytes_read] = '\0';
-		stash = ft_strjoin_free(stash, buffer_cont);
+		buffer_count[bytes_read] = '\0';
+		line = ft_strjoin_free(line, buffer_count);
 	}
-	line = ft_extract_line(stash);
-	stash = ft_clean_stash(stash);
+	line = ft_extract_line(line);
+	ft_clean_stash(buffer_count);
 	return (line);
 }
 
@@ -44,9 +48,9 @@ int main(void)
 	char *line;
 
 	i = 0;
-	while (i < 151)
+
+	while ((line = get_next_line(fd)))
 	{
-		line = get_next_line(fd);
 		printf("%s", line);
 		free(line);
 		i++;
