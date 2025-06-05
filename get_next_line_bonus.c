@@ -1,43 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcardoso <mcardoso@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 12:37:41 by mcardoso          #+#    #+#             */
-/*   Updated: 2025/06/05 12:19:33 by mcardoso         ###   ########.fr       */
+/*   Created: 2025/06/05 12:18:25 by mcardoso          #+#    #+#             */
+/*   Updated: 2025/06/05 12:37:12 by mcardoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-char	*get_next_line(int fd)
+char	*get_next_line_bonus(int fd)
 {
-	static char	buffer_count[BUFFER_SIZE + 1];
+	static char	buffer_count[BUFFER_MAXFD][BUFFER_SIZE + 1];
 	char		*line;
 	int			bytes_read;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > BUFFER_MAXFD || BUFFER_SIZE <= 0)
 		return (NULL);
 	line = NULL;
-	if (*buffer_count != '\0')
-		line = ft_strjoin_free(line, buffer_count);
-	while (ft_findnewline(buffer_count) == -1)
+	if (*buffer_count[fd] != '\0')
+		line = ft_strjoin_free(line, buffer_count[fd]);
+	while (ft_findnewline(buffer_count[fd]) == -1)
 	{
-		bytes_read = read(fd, buffer_count, BUFFER_SIZE);
+		bytes_read = read(fd, buffer_count[fd], BUFFER_SIZE);
 		if (bytes_read < 0)
 		{
-			buffer_count[0] = '\0';
+			buffer_count[fd][0] = '\0';
 			return (free(line), NULL);
 		}
 		if (bytes_read == 0)
 			break ;
-		buffer_count[bytes_read] = '\0';
-		line = ft_strjoin_free(line, buffer_count);
+		buffer_count[fd][bytes_read] = '\0';
+		line = ft_strjoin_free(line, buffer_count[fd]);
 	}
 	line = ft_extract_line(line);
-	ft_clean_stash(buffer_count);
+	ft_clean_stash(buffer_count[fd]);
 	return (line);
 }
 
@@ -49,15 +49,15 @@ int main(void)
 
 	i = 0;
 
-	// line = get_next_line(fd);
-	// printf("%s", line);
-	// free(line);
+	line = get_next_line(fd);
+	printf("%s", line);
+	free(line);
 
-	while ((line = get_next_line(fd)))
-	{
-		printf("%s", line);
-		free(line);
-		i++;
-	}
+	// while ((line = get_next_line_bonus(fd)))
+	// {
+	// 	printf("%s", line);
+	// 	free(line);
+	// 	i++;
+	// }
 	close(fd);
 }
